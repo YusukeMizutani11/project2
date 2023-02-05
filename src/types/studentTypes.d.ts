@@ -35,3 +35,5 @@ type NewStudentRequest = {
   name: string;
   weights: CourseGrades;
 };
+
+type StudentManager = Record<string, Student>;

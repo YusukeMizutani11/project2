@@ -10,10 +10,10 @@ const PORT = 8091;
 
 app.use(express.json());
 
-app.get('/', getAllStudents);
+app.get('/api', getAllStudents);
 
-app.post('/students', createNewStudent);
-app.get('/students/:studentName', getStudentByName);
+app.post('/api/students', createNewStudent);
+app.get('/api/students/:studentName', getStudentByName);
 
 app.listen(PORT, () => {
   console.log(`Server listening on https://localhost:${PORT}`);

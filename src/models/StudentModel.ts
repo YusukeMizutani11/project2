@@ -2,8 +2,8 @@ const students: StudentManager = {};
 
 function calculateAverage(weights: CourseGrades): number {
   let averageGrade = 0;
-  for (let i = 0; i < weights.assignmentWeights.length; i += 1)
-    averageGrade += weights.assignmentWeights[i].weight * weights.assignmentWeights[i].grade;
+  for (const grade of weights.assignmentWeights)
+    averageGrade += (grade.grade * grade.weight) / (100 - weights.finalExamWeight);
   return averageGrade;
 }
 
@@ -37,7 +37,59 @@ function getStudent(studentName: string): Student | undefined {
   if (!(studentName in students)) {
     return undefined;
   }
-  return students.studentName;
+  return students[studentName];
 }
 
-export { students, addStudent, getStudent };
+function calculateFinalExamScore(
+  currentAverage: number,
+  finalExamWeight: number,
+  targetScore: number
+): number {
+  // TODO: Calculate the final exam score needed to get the targetScore in the class
+  const gap = targetScore - currentAverage;
+  const x = gap / finalExamWeight;
+  return x;
+}
+
+function getLetterGrade(score: number): string {
+  // TODO: Return the appropriate letter grade
+  if (score >= 90) return 'A';
+  if (score >= 80 && score < 90) return 'B';
+  if (score >= 70 && score < 80) return 'C';
+  if (score >= 60 && score < 70) return 'D';
+  return 'F';
+}
+
+function updateStudentGrade(
+  studentName: string,
+  assignmentName: string,
+  newGrade: number
+): boolean {
+  const student = getStudent(studentName);
+
+  if (!student) {
+    return false;
+  }
+
+  const assignment = student.weights.assignmentWeights.find(
+    (element) => element.name === assignmentName
+  );
+
+  if (!assignment) {
+    return false;
+  }
+  assignment.grade = newGrade;
+
+  student.currentAverage = calculateAverage(student.weights);
+
+  return true;
+}
+
+export {
+  students,
+  addStudent,
+  getStudent,
+  calculateFinalExamScore,
+  getLetterGrade,
+  updateStudentGrade,
+};

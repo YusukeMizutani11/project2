@@ -46,8 +46,9 @@ function calculateFinalExamScore(
   targetScore: number
 ): number {
   // TODO: Calculate the final exam score needed to get the targetScore in the class
-  const gap = targetScore - currentAverage;
-  const x = gap / finalExamWeight;
+  const score = currentAverage * ((100 - finalExamWeight) / 100);
+  const gap = targetScore - score;
+  const x = (gap / finalExamWeight) * 100;
   return x;
 }
 

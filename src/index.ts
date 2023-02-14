@@ -1,3 +1,11 @@
+/*
+ *  index.ts
+ *  Project: Implementing 5 endpoints
+ *
+ *  Author: Yusuke Mizutani
+ *  Created on: Feb 10, 2023
+ */
+
 import express, { Express } from 'express';
 import {
   getAllStudents,
